@@ -1,10 +1,45 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
+apply plugin: 'com.jfrog.bintray'
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+project.ext {
+    mavGitUrl = 'https://github.com/geraldjaydlagarto/kotlin-android-utility-extensions.git'
+    mavProjectName = 'KotlinAndroidUtilityExtensions'
+    mavLibraryLicenses = ["Apache-2.0":'http://www.apache.org/licenses/LICENSE-2.0.txt']
+    mavLibraryDescription = "\t\n" +
+            "A collection of utility functions."
+    mavPublishToMavenLocal = true
+    mavSiteUrl = 'https://github.com/geraldjaydlagarto/kotlin-android-utility-extensions'
+}
+
+def properties = new Properties()
+properties.load(new FileInputStream("local.properties"))
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    publications = ['mavenPublish']
+    configurations = ['archives']
+    override = true
+    pkg {
+        repo = 'kotlin-android-utilty-extensions'
+        name = 'KotlinAndroidUtilityExtensions'
+        description = "A collection of utility functions."
+        publicDownloadNumbers = true
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/geraldjaydlagarto/kotlin-android-utility-extensions'
+        version {
+            name = this.version
+            desc = "Version ${this.version}"
+            released = new Date()
+            vcsTag = this.version
+        }
+    }
+}
+
+apply from: 'https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle'
+//apply from: 'publish.gradle'
