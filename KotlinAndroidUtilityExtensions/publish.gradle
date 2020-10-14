@@ -2,28 +2,29 @@ apply plugin: 'com.jfrog.bintray'
 group 'com.geraldjaydlagarto'
 version '0.1'
 
-project.ext {
-    mavGitUrl = 'https://github.com/geraldjaydlagarto/kotlin-android-utility-extensions.git'
-    mavProjectName = 'RetrofitLiveDataCallAdapter'
-    mavLibraryLicenses = ["Apache-2.0": 'http://www.apache.org/licenses/LICENSE-2.0.txt']
-    mavLibraryDescription = "\t\n" +
-            "A collection of useful extensions."
-    mavPublishToMavenLocal = true
-    mavSiteUrl = 'https://github.com/geraldjaydlagarto/kotlin-android-utility-extensions'
-}
+// Responsible for building the library, generating the artifacts & linking all the external dependencies we are using.
+//project.ext {
+//    mavGitUrl = 'https://github.com/geraldjaydlagarto/kotlin-android-utility-extensions.git'
+//    mavProjectName = 'RetrofitLiveDataCallAdapter'
+//    mavLibraryLicenses = ["Apache-2.0": 'http://www.apache.org/licenses/LICENSE-2.0.txt']
+//    mavLibraryDescription = "\t\n" +
+//            "A collection of useful extensions."
+//    mavPublishToMavenLocal = true
+//    mavSiteUrl = 'https://github.com/geraldjaydlagarto/kotlin-android-utility-extensions'
+//}
 
 def properties = new Properties()
 properties.load(new FileInputStream("local.properties"))
 
 bintray {
     user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apiKey")
+    key = properties.getProperty("bintray.apikey")
     publications = ['mavenPublish']
     configurations = ['archives']
     override = true
     pkg {
-        repo = "KotlinAndroidUtitlityExtensions"
-        name = "KotlinAndroidUtitlityExtensions"
+        repo = "KotlinAndroidUtilityExtensions"
+        name = "KotlinAndroidUtilityExtensions"
         description= "A collection of useful extensions"
         publicDownloadNumbers = true
         licenses = ['Apache-2.0']
